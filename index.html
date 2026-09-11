@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Adubação">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#262C1E">
+<title>Calculadora de Adubação e Semeadura</title>
+
+<!-- Manifest PWA Embutido -->
+<link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22Calculadora%20de%20Aduba%C3%A7%C3%A3o%22%2C%22short_name%22%3A%22Aduba%C3%A7%C3%A3o%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23262C1E%22%2C%22theme_color%22%3A%22%23262C1E%22%7D">
+
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --soil: #262C1E;
+    --bg: #E8E4D5;
+    --bg-panel: #DED9C6;
+    --olive: #4F6B3C;
+    --wheat: #B8903A;
+    --line: #B8B096;
+    --rule: #cbc5ac;
+    --white-ish: #F6F4EC;
+    --danger: #8C4A32;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--bg);}
+  body{
+    background:var(--bg);
+    color:var(--soil);
+    font-family:-apple-system, BlinkMacSystemFont, 'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:1000px;
+    margin:0 auto;
+    padding: calc(16px + env(safe-area-inset-top)) 20px calc(48px + env(safe-area-inset-bottom));
+  }
+  header{
+    border-bottom:2px solid var(--soil);
+    padding-bottom:18px;
+    margin-bottom:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  h1{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 36px);
+    margin:0 0 6px 0;
+    letter-spacing:-0.01em;
+  }
+  header p{
+    margin:0;
+    max-width:46ch;
+    color:#4a4635;
+    font-size:14px;
+  }
+  .unit-toggle{
+    display:flex;
+    border:1.5px solid var(--soil);
+    border-radius:6px;
+    overflow:hidden;
+    flex-shrink:0;
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:13px;
+    background:var(--white-ish);
+  }
+  .unit-toggle button{
+    background:var(--white-ish);
+    border:none;
+    padding:9px 14px;
+    cursor:pointer;
+    color:var(--soil);
+    font-family:inherit;
+    font-size:inherit;
+    touch-action:manipulation;
+  }
+  .unit-toggle button + button{ border-left:1.5px solid var(--soil); }
+  .unit-toggle button.active{ background:var(--soil); color:var(--white-ish); }
+
+  .dose-mode-row{
+    display:flex;
+    align-items:flex-end;
+    gap:16px;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+  }
+  .sack-field label{
+    display:block;
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:11.5px;
+    color:#6b6650;
+    margin-bottom:4px;
+  }
+  .sack-field .input-row{
+    width:110px;
+  }
+  .sack-field .input-row input{
+    font-size:16px;
+  }
+
+  .conv-note{
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:12px;
+    color:#6b6650;
+    margin:0 0 24px 0;
+  }
+
+  nav.tabs{
+    display:flex;
+    gap:2px;
+    margin-bottom:0;
+  }
+  nav.tabs button{
+    flex:1;
+    background:var(--bg-panel);
+    border:1.5px solid var(--soil);
+    border-bottom:none;
+    padding:12px 14px;
+    font-family:-apple-system, BlinkMacSystemFont, 'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    color:#6b6650;
+    cursor:pointer;
+    border-radius:6px 6px 0 0;
+    touch-action:manipulation;
+  }
+  nav.tabs button.active{
+    background:var(--soil);
+    color:var(--white-ish);
+  }
+
+  .panel{
+    border:1.5px solid var(--soil);
+    background:var(--bg-panel);
+    padding:24px 20px;
+    display:none;
+    border-radius:0 6px 6px 6px;
+  }
+  .panel.active{ display:block; }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:28px;
+  }
+  @media (max-width:680px){ .grid{ grid-template-columns:1fr; } }
+
+  .field{
+    margin-bottom:18px;
+  }
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:#4a4635;
+    margin-bottom:4px;
+  }
+  .field .hint{
+    font-size:11.5px;
+    color:#8a836a;
+    margin-top:4px;
+    font-family:'IBM Plex Mono', Courier, monospace;
+  }
+  .input-row{
+    display:flex;
+    align-items:baseline;
+    border-bottom:1.5px solid var(--rule);
+    padding-bottom:4px;
+  }
+  .input-row:focus-within{ border-bottom-color:var(--olive); }
+  .input-row input, .input-row select{
+    flex:1;
+    border:none;
+    background:none;
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:20px;
+    color:var(--soil);
+    padding:4px 0;
+    outline:none;
+    min-width:0;
+  }
+  .input-row select{ font-size:16px; cursor:pointer; }
+  .input-row .suffix{
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:13px;
+    color:#8a836a;
+    white-space:nowrap;
+    padding-left:8px;
+  }
+
+  .presets{
+    display:flex;
+    gap:6px;
+    margin-top:8px;
+    flex-wrap:wrap;
+  }
+  .presets button{
+    background:var(--white-ish);
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:11.5px;
+    padding:5px 8px;
+    color:#6b6650;
+    cursor:pointer;
+    touch-action:manipulation;
+  }
+  .presets button:hover, .presets button:active{ border-color:var(--olive); color:var(--olive); }
+
+  .results{
+    background:var(--soil);
+    color:var(--white-ish);
+    border-radius:6px;
+    padding:22px 20px;
+    align-self:start;
+    position:sticky;
+    top:20px;
+  }
+  .results h2{
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:11.5px;
+    letter-spacing:0.04em;
+    color:#a7a58c;
+    margin:0 0 16px 0;
+    font-weight:600;
+  }
+  .readout{
+    margin-bottom:18px;
+    padding-bottom:14px;
+    border-bottom:1px solid #40462f;
+  }
+  .readout:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .readout .val{
+    font-family:'Fraunces', Georgia, serif;
+    font-size:30px;
+    font-weight:600;
+    color:var(--wheat);
+    line-height:1.15;
+  }
+  .readout .val small{
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:14px;
+    color:#cfcdb8;
+    font-weight:400;
+    margin-left:4px;
+  }
+  .readout .label{
+    font-size:12px;
+    color:#cfcdb8;
+    margin-top:3px;
+  }
+
+  .divider-note{
+    font-family:'IBM Plex Mono', Courier, monospace;
+    font-size:11.5px;
+    color:#8a8567;
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px dashed #40462f;
+    line-height:1.5;
+  }
+
+  footer{
+    margin-top:24px;
+    font-size:11.5px;
+    color:#8a836a;
+    font-family:'IBM Plex Mono', Courier, monospace;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Adubação &amp; Semeadura</h1>
+      <p>Converta dose por hectare ou alqueire paulista em gramas por metro linear — e confira a calibração da máquina no talhão.</p>
+    </div>
+    <div class="unit-toggle" id="unitToggle">
+      <button data-unit="ha" class="active">ha</button>
+      <button data-unit="alq">alqueire paulista</button>
+    </div>
+  </header>
+
+  <div class="dose-mode-row">
+    <div class="unit-toggle" id="doseModeToggle">
+      <button data-mode="kg" class="active">dose em kg</button>
+      <button data-mode="sacos">dose em sacos</button>
+    </div>
+    <div class="sack-field" id="sackField" style="display:none;">
+      <label for="sackWeight">peso do saco</label>
+      <div class="input-row">
+        <input type="number" id="sackWeight" value="50" min="1" step="1" inputmode="numeric">
+        <span class="suffix">kg</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="conv-note">1 alqueire paulista = 2,42 ha (24.200 m²) — usado nos cálculos abaixo</p>
+
+  <nav class="tabs">
+    <button data-tab="aplicar" class="active">Calcular dose a aplicar</button>
+    <button data-tab="conferir">Conferir calibração</button>
+  </nav>
+
+  <!-- PAINEL 1: aplicar -->
+  <div class="panel active" id="panel-aplicar">
+    <div class="grid">
+      <div>
+        <div class="field">
+          <label for="dose">Dose desejada</label>
+          <div class="input-row">
+            <input type="number" id="dose" value="350" min="0" step="1" inputmode="decimal">
+            <span class="suffix" id="doseSuffix">kg/ha</span>
+          </div>
+          <div class="hint" id="doseHint">Adubo de base, cobertura ou densidade de semente — em massa</div>
+        </div>
+
+        <div class="field">
+          <label for="espacamento">Espaçamento entrelinhas</label>
+          <div class="input-row">
+            <input type="number" id="espacamento" value="45" min="1" step="1" inputmode="numeric">
+            <span class="suffix">cm</span>
+          </div>
+          <div class="presets">
+            <button data-esp="45">Soja · 45cm</button>
+            <button data-esp="50">Soja · 50cm</button>
+            <button data-esp="70">Milho · 70cm</button>
+            <button data-esp="90">Milho safrinha · 90cm</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="metros">Conferir em quantos metros lineares?</label>
+          <div class="input-row">
+            <input type="number" id="metros" value="50" min="0" step="1" inputmode="numeric">
+            <span class="suffix">m</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="areaTotal">Área total da lavoura (opcional)</label>
+          <div class="input-row">
+            <input type="number" id="areaTotal" value="" min="0" step="0.1" placeholder="0" inputmode="decimal">
+            <span class="suffix" id="areaSuffix">ha</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="results">
+        <h2>RESULTADO</h2>
+        <div class="readout">
+          <div class="val" id="rGramasMetro">—<small>g/m linear</small></div>
+          <div class="label">quantidade por metro de linha</div>
+        </div>
+        <div class="readout">
+          <div class="val" id="rGramasTrecho">—<small>g</small></div>
+          <div class="label" id="rGramasTrechoLabel">no trecho de conferência</div>
+        </div>
+        <div class="readout" id="rTotalWrap" style="display:none;">
+          <div class="val" id="rTotal">—<small>kg</small></div>
+          <div class="label">total para a área informada</div>
+        </div>
+        <div class="divider-note">
+          Metros lineares de linha por hectare: <span id="rMetrosHa">—</span> m
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL 2: conferir -->
+  <div class="panel" id="panel-conferir">
+    <div class="grid">
+      <div>
+        <div class="field">
+          <label for="gColetados">Quanto foi coletado na bandeja / lona?</label>
+          <div class="input-row">
+            <input type="number" id="gColetados" value="18" min="0" step="0.1" inputmode="decimal">
+            <span class="suffix">g</span>
+          </div>
+          <div class="hint">Peso recolhido ao passar a semeadora/adubadora no trecho de teste</div>
+        </div>
+
+        <div class="field">
+          <label for="metrosPercorridos">Trecho percorrido</label>
+          <div class="input-row">
+            <input type="number" id="metrosPercorridos" value="50" min="0" step="1" inputmode="numeric">
+            <span class="suffix">m</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="espacamento2">Espaçamento entrelinhas</label>
+          <div class="input-row">
+            <input type="number" id="espacamento2" value="45" min="1" step="1" inputmode="numeric">
+            <span class="suffix">cm</span>
+          </div>
+          <div class="presets">
+            <button data-esp2="45">Soja · 45cm</button>
+            <button data-esp2="50">Soja · 50cm</button>
+            <button data-esp2="70">Milho · 70cm</button>
+            <button data-esp2="90">Milho safrinha · 90cm</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="doseAlvo">Dose alvo, para comparar (opcional)</label>
+          <div class="input-row">
+            <input type="number" id="doseAlvo" value="" min="0" step="1" placeholder="0" inputmode="decimal">
+            <span class="suffix" id="doseAlvoSuffix">kg/ha</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="results">
+        <h2>RESULTADO</h2>
+        <div class="readout">
+          <div class="val" id="rDoseReal">—<small id="rDoseRealUnit">kg/ha</small></div>
+          <div class="label">dose real, na regulagem atual</div>
+        </div>
+        <div class="readout" id="rDesvioWrap" style="display:none;">
+          <div class="val" id="rDesvio">—<small>%</small></div>
+          <div class="label" id="rDesvioLabel">em relação à dose alvo</div>
+        </div>
+        <div class="divider-note">
+          Ajuste a regulagem do disco/rosca dosadora e repita a coleta até a dose real ficar próxima da dose alvo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>1 alqueire paulista = 2,42 ha · valores de referência — sempre confira a calibração em campo antes de semear</footer>
+
+</div>
+
+<script>
+const ALQ = 2.42;
+
+let areaUnit = 'ha';
+let doseMode = 'kg';
+
+document.querySelectorAll('#doseModeToggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#doseModeToggle button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    doseMode = btn.dataset.mode;
+    document.getElementById('sackField').style.display = doseMode === 'sacos' ? 'block' : 'none';
+    updateDoseSuffixes();
+    calc1(); calc2();
+  });
+});
+document.getElementById('sackWeight').addEventListener('input', ()=>{ calc1(); calc2(); });
+
+function updateDoseSuffixes(){
+  const areaLabel = areaUnit === 'ha' ? 'ha' : 'alqueire';
+  if(doseMode === 'sacos'){
+    document.getElementById('doseSuffix').textContent = 'sacos/' + areaLabel;
+    document.getElementById('doseAlvoSuffix').textContent = 'sacos/' + areaLabel;
+    document.getElementById('doseHint').textContent = 'Número de sacos — convertido usando o peso do saco informado acima';
+  } else {
+    document.getElementById('doseSuffix').textContent = 'kg/' + areaLabel;
+    document.getElementById('doseAlvoSuffix').textContent = 'kg/' + areaLabel;
+    document.getElementById('doseHint').textContent = 'Adubo de base, cobertura ou densidade de semente — em massa';
+  }
+}
+
+document.querySelectorAll('nav.tabs button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+document.querySelectorAll('#unitToggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#unitToggle button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    areaUnit = btn.dataset.unit;
+    const suf = areaUnit === 'ha' ? 'ha' : 'alqueire paulista';
+    document.getElementById('areaSuffix').textContent = suf;
+    updateDoseSuffixes();
+    calc1(); calc2();
+  });
+});
+
+document.querySelectorAll('[data-esp]').forEach(b=>{
+  b.addEventListener('click', ()=>{ document.getElementById('espacamento').value = b.dataset.esp; calc1(); });
+});
+document.querySelectorAll('[data-esp2]').forEach(b=>{
+  b.addEventListener('click', ()=>{ document.getElementById('espacamento2').value = b.dataset.esp2; calc2(); });
+});
+
+function fmt(n, digits){
+  if(!isFinite(n)) return '—';
+  return n.toLocaleString('pt-BR', {minimumFractionDigits:digits, maximumFractionDigits:digits});
+}
+
+function doseToKgHa(val){
+  return areaUnit === 'ha' ? val : val / ALQ;
+}
+function kgHaToDose(kgha){
+  return areaUnit === 'ha' ? kgha : kgha * ALQ;
+}
+
+function doseInputToKgUnit(rawVal){
+  if(doseMode !== 'sacos') return rawVal;
+  const sackWeight = parseFloat(document.getElementById('sackWeight').value) || 0;
+  return rawVal * sackWeight;
+}
+
+function calc1(){
+  const doseInputRaw = parseFloat(document.getElementById('dose').value) || 0;
+  const doseInput = doseInputToKgUnit(doseInputRaw);
+  const espCm = parseFloat(document.getElementById('espacamento').value) || 0;
+  const metros = parseFloat(document.getElementById('metros').value) || 0;
+  const areaInput = parseFloat(document.getElementById('areaTotal').value) || 0;
+
+  const espM = espCm / 100;
+  const kgHa = doseToKgHa(doseInput);
+
+  const metrosLinearesHa = espM > 0 ? 10000 / espM : 0;
+  const gPorMetro = espM > 0 ? (kgHa * 1000 * espM) / 10000 : 0;
+  const gTrecho = gPorMetro * metros;
+
+  document.getElementById('rGramasMetro').innerHTML = fmt(gPorMetro,2) + '<small>g/m linear</small>';
+  document.getElementById('rGramasTrecho').innerHTML = fmt(gTrecho,1) + '<small>g</small>';
+  document.getElementById('rGramasTrechoLabel').textContent = 'em ' + (metros||0) + ' m de linha';
+  document.getElementById('rMetrosHa').textContent = fmt(metrosLinearesHa,0);
+
+  const totalWrap = document.getElementById('rTotalWrap');
+  if(areaInput > 0){
+    const areaHa = areaUnit === 'ha' ? areaInput : areaInput * ALQ;
+    const kgTotal = kgHa * areaHa;
+    document.getElementById('rTotal').innerHTML = fmt(kgTotal,1) + '<small>kg</small>';
+    totalWrap.style.display = 'block';
+  } else {
+    totalWrap.style.display = 'none';
+  }
+}
+
+function calc2(){
+  const g = parseFloat(document.getElementById('gColetados').value) || 0;
+  const metros = parseFloat(document.getElementById('metrosPercorridos').value) || 0;
+  const espCm = parseFloat(document.getElementById('espacamento2').value) || 0;
+  const doseAlvoRaw = parseFloat(document.getElementById('doseAlvo').value) || 0;
+  const doseAlvoInput = doseInputToKgUnit(doseAlvoRaw);
+
+  const espM = espCm / 100;
+  const gPorMetro = metros > 0 ? g / metros : 0;
+  const kgHaReal = espM > 0 ? (gPorMetro * 10 / espM) : 0;
+  const doseReal = kgHaToDose(kgHaReal);
+
+  document.getElementById('rDoseReal').innerHTML = fmt(doseReal,1) + '<small id="rDoseRealUnit">' + (areaUnit==='ha'?'kg/ha':'kg/alqueire') + '</small>';
+
+  const desvioWrap = document.getElementById('rDesvioWrap');
+  if(doseAlvoInput > 0){
+    const desvio = ((doseReal - doseAlvoInput) / doseAlvoInput) * 100;
+    const sinal = desvio > 0 ? '+' : '';
+    document.getElementById('rDesvio').innerHTML = sinal + fmt(desvio,1) + '<small>%</small>';
+    document.getElementById('rDesvioLabel').textContent = desvio > 0 ? 'acima da dose alvo — reduza a regulagem' : (desvio < 0 ? 'abaixo da dose alvo — aumente a regulagem' : 'dose alvo atingida');
+    desvioWrap.style.display = 'block';
+  } else {
+    desvioWrap.style.display = 'none';
+  }
+}
+
+['dose','espacamento','metros','areaTotal'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', calc1);
+});
+['gColetados','metrosPercorridos','espacamento2','doseAlvo'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', calc2);
+});
+
+updateDoseSuffixes();
+calc1();
+calc2();
+
+// Service Worker básico para permitir abertura offline
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE_NAME = 'adubacao-v1';
+    self.addEventListener('install', e => { self.skipWaiting(); });
+    self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        fetch(e.request).catch(() => caches.match(e.request))
+      );
+    });
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+</script>
+</body>
+</html>
